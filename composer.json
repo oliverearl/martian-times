@@ -1,0 +1,82 @@
+{
+    "name": "oliverearl/martian-time",
+    "description": "Dependency-free Martian solar time calculations based on the NASA Mars24 algorithm, with optional Carbon integration.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "mars",
+        "martian",
+        "time",
+        "mars24",
+        "carbon"
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "suggest": {
+        "nesbot/carbon": "Enable optional Carbon 2.73+ or 3.x macros."
+    },
+    "autoload": {
+        "psr-4": {
+            "MartianTime\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": "@php vendor/bin/phpunit",
+        "test:unit": "@php vendor/bin/phpunit --testsuite unit",
+        "test:carbon": "@php vendor/bin/phpunit --testsuite carbon",
+        "lint": "@php vendor/bin/pint --test",
+        "lint:fix": "@php vendor/bin/pint",
+        "analyse": "@php vendor/bin/phpstan analyse --memory-limit=512M",
+        "check": [
+            "@composer validate --strict",
+            "@lint",
+            "@analyse",
+            "@test"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Oliver Earl"
+        }
+    ],
+    "require-dev": {
+        "laravel/pint": "^1.27",
+        "nesbot/carbon": "^2.73 || ^3.0",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MartianTime\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "platform": {
+            "php": "8.2.0"
+        }
+    },
+    "archive": {
+        "exclude": [
+            "/.gitattributes",
+            "/.github",
+            "/.gitignore",
+            "/.idea",
+            "/.phpunit.cache",
+            "/.phpunit.result.cache",
+            "/.phpstan.cache",
+            "/.pint.cache",
+            "/composer.lock",
+            "/examples",
+            "/phpstan.neon",
+            "/phpunit.xml",
+            "/phpunit.xml.dist",
+            "/pint.json",
+            "/tests",
+            "/vendor",
+            "/work"
+        ]
+    }
+}
