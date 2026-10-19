@@ -1,0 +1,7 @@
+parameters:
+    level: max
+    phpVersion: 80200
+    paths:
+        - src
+        - examples
+    tmpDir: .phpstan.cache

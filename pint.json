@@ -1,0 +1,7 @@
+{
+    "preset": "per",
+    "exclude": [
+        "work"
+    ],
+    "cache-file": ".pint.cache"
+}
