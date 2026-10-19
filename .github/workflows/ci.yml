@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: PHP ${{ matrix.php }} / Carbon ${{ matrix.carbon }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3', '8.4', '8.5']
+        carbon: ['^2.73', '^3.0']
+    steps:
+      - uses: actions/checkout@v7
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          coverage: none
+      - name: Resolve against the current PHP runtime
+        run: composer config --unset platform.php
+      - name: Select Carbon version
+        env:
+          CARBON_CONSTRAINT: ${{ matrix.carbon }}
+        run: composer require --dev "nesbot/carbon:$CARBON_CONSTRAINT" --no-update --no-interaction
+      - name: Resolve dependencies for this PHP version
+        run: composer update --no-interaction --prefer-dist --no-progress
+      - run: composer test
+
+  quality:
+    name: Formatting, analysis, and example
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+          coverage: none
+      - run: composer validate --strict
+      - run: composer install --no-interaction --prefer-dist --no-progress
+      - run: composer lint
+      - run: composer analyse
+      - run: php examples/basic.php
