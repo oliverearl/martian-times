@@ -60,6 +60,7 @@
     },
     "archive": {
         "exclude": [
+            "/AGENTS.md",
             "/.gitattributes",
             "/.github",
             "/.gitignore",
